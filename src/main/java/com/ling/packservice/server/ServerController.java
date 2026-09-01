@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,6 +27,14 @@ public class ServerController {
                 .map(ServerResponse::fromServer)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<ServerResponse>> getALl() {
+        List<ServerResponse> servers = serverRepository.findAll().stream()
+                .map(ServerResponse::fromServer)
+                .toList();
+        return ResponseEntity.ok(servers);
     }
 
     @GetMapping("/{serverId}/build")

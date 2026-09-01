@@ -19,3 +19,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_ISSUER:http://auth-service:8080}
